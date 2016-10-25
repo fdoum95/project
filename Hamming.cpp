@@ -1,38 +1,15 @@
 #include "Hamming.h"
-#include "List.h"
+#include "hashtable.h"
 #include <iostream>
 #include <math.h>
+#include <stdlib.h>
 
 using namespace std;
 
-
-//Hashtable
-
-H_HashTable::H_HashTable()
-{
-}
-
-H_HashTable::~H_HashTable()
-{
-	delete Hfunctions;
-	delete list;
-}
-
-H_HashTable::Hashtable_Init(int k)
-{
-	cout << "A Hashtable was created." << endl;
-	size = pow(2, k);
-	Hfunctions = new int[k];
-	list = new List<char>[size];
-}
-
-
-
-//Hamming
-
-Hamming::Hamming(int k, int l)
+Hamming::Hamming(int k, int l, int bit_size)
 {
 	cout << "A Hamming class was created." << endl;
+	bsize = bit_size;
 	L = l;
 	hashtable = new H_HashTable[l];
 	for (int i=0; i <= l - 1; i++)
@@ -45,6 +22,25 @@ Hamming::~Hamming()
 {
 	delete hashtable;
 }
+
+void Hamming::Display(){
+	for (int i=0; i <= L - 1; i++)
+	{
+		hashtable[i].Display();
+	}
+}
+
+void Hamming::Random_Simple(int size){
+	for (int i=0; i <= L - 1; i++)
+	{
+		hashtable[i].Random_Simple(size);
+	}
+}
+
+int Hamming::bsize_return(){
+	return bsize;
+}
+
 
 template class List<int>;
 template class List<char>;

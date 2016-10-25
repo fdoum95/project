@@ -1,16 +1,7 @@
 #ifndef List_H
 #define List_H
 
-template <class T>
-class Node
-{
-	private:
-		T *bit_string;
-		Node *next;
-	public:
-		Node();
-		~Node();
-};
+#include "Node.h"
 
 template <class T>
 class List

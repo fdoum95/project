@@ -3,24 +3,6 @@
 
 using namespace std;
 
-
-//HNode
-
-template <class T>
-Node<T>::Node()
-{
-	cout << "A Node was created." << endl;
-}
-
-template <class T>
-Node<T>::~Node()
-{
-	
-}
-
-
-//HList
-
 template <class T>
 List<T>::List()
 {

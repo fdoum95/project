@@ -1,29 +1,23 @@
 #ifndef Hamming_H
 #define Hamming_H
 
-#include "List.h"
-
-class H_HashTable
-{
-	private:
-		int size;
-		int *Hfunctions;
-		List<char> *list;
-	public:
-		H_HashTable();
-		~H_HashTable();
-		
-		Hashtable_Init(int);
-};
+#include "Hashtable.h"
 
 class Hamming
 {
 	private:
+		int bsize;
 		int L;
 		H_HashTable *hashtable;	
 	public:
-		Hamming(int, int);
+		Hamming(int, int, int);
 		~Hamming();
+		
+		void Random_Simple(int);
+		
+		void Display();
+		
+		int bsize_return();
 };
 
 #endif
