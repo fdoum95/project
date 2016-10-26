@@ -6,10 +6,9 @@
 
 using namespace std;
 
-Hamming::Hamming(int k, int l, int bit_size)
+Hamming::Hamming(int k, int l)
 {
 	cout << "A Hamming class was created." << endl;
-	bsize = bit_size;
 	L = l;
 	hashtable = new H_HashTable[l];
 	for (int i=0; i <= l - 1; i++)
@@ -35,10 +34,6 @@ void Hamming::Random_Simple(int size){
 	{
 		hashtable[i].Random_Simple(size);
 	}
-}
-
-int Hamming::bsize_return(){
-	return bsize;
 }
 
 

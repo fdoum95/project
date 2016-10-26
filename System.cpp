@@ -5,13 +5,13 @@
 
 using namespace std;
 
-System::System(char m, int k, int L, int bit_size)
+System::System(char m, int k, int L)
 {
 	metric = m;
 	if (metric == 'H')
 	{
 		cout << "A new system was created with hamming metric." << endl;
-		hamming = new Hamming(k, L, bit_size);
+		hamming = new Hamming(k, L);
 	}
 }
 
@@ -63,20 +63,10 @@ void System::Display()
 
 void System::Reader(char *line)
 {
-	int line_count = 0;
-	char *bstring;
-	bstring = new char[hamming->bsize_return()];
 	if (metric == 'H')
 	{
-		while(line[line_count] != '\t')
-			line_count++;
-		line_count++;
-		
-		strcpy(bstring, &line[line_count]);  //copy bit string from line to bstring
-		cout << bstring << endl;
-		
 		//new node
-		//Insert node at list
+		//Insert list
 	}
 	else if (metric == 'E')
 	{

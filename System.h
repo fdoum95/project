@@ -12,7 +12,7 @@ class System
 		
 		
 	public:
-		System(char , int, int, int);
+		System(char , int, int);
 		~System();
 		
 		void Menu();
