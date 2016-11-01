@@ -35,7 +35,7 @@ int main(int argc, char *argv[])
 	int** array;
 	double R;
 	double c = 1;
-	char metric;
+	char metric, option;
 	string line;
 	char command;
 	
@@ -201,7 +201,7 @@ do{
 	}
 	
 //Create new classes
-//Read new queries and add them to hashtables
+//Read new items and add them to hashtables
 	max = 1;
 	if (metric == 'h')
 	{
@@ -209,9 +209,9 @@ do{
 		getline(inFile2, line);
 		if (inFile2.is_open())
 		{
-			while(getline(inFile2, line) && max <= MAXIMUM)     //Start reading queries and put them at lists
+			while(getline(inFile2, line) && max <= MAXIMUM)     //Start reading items and put them at lists
 			{
-				for(int i=0; i <= hamming->get_L() - 1; i++)    //for every HashTable  , that mean that with have L copies of a node
+				for(int i=0; i <= hamming->get_L() - 1; i++)    //for every HashTable  , that mean that we have L copies of a node
 					hamming->Hamming_Reader(&line[0], i, max);
 				max++;
 			}
@@ -224,9 +224,9 @@ do{
 		getline(inFile2, line);
 		if (inFile2.is_open())
 		{
-			while(getline(inFile2, line) && max <= MAXIMUM)     //Start reading queries and put them at lists
+			while(getline(inFile2, line) && max <= MAXIMUM)     //Start reading items and put them at lists
 			{
-				for(int i=0; i <= euclidean->get_L() - 1; i++)    //for every HashTable  , that mean that with have L copies of a node
+				for(int i=0; i <= euclidean->get_L() - 1; i++)    //for every HashTable  , that mean that we have L copies of a node
 					euclidean->Euclidean_Reader(&line[0], i, max);
 				max++;
 			}
@@ -239,9 +239,9 @@ do{
 		getline(inFile2, line);
 		if (inFile2.is_open())
 		{
-			while(getline(inFile2, line) && max <= MAXIMUM)     //Start reading queries and put them at lists
+			while(getline(inFile2, line) && max <= MAXIMUM)     //Start reading items and put them at lists
 			{
-				for(int i=0; i <= cosine->get_L() - 1; i++)    //for every HashTable  , that mean that with have L copies of a node
+				for(int i=0; i <= cosine->get_L() - 1; i++)    //for every HashTable  , that mean that we have L copies of a node
 					cosine->Cosine_Reader(&line[0], i, max);
 				max++;
 			}
@@ -254,9 +254,9 @@ do{
 		getline(inFile2, line);
 		if (inFile2.is_open())
 		{
-			while(getline(inFile2, line) && max <= MAXIMUM)     //Start reading queries and put them at lists
+			while(getline(inFile2, line) && max <= MAXIMUM)     //Start reading items and put them at lists
 			{
-				for(int i=0; i <= dmatrix->get_L() - 1; i++)    //for every HashTable  , that mean that with have L copies of a node
+				for(int i=0; i <= dmatrix->get_L() - 1; i++)    //for every HashTable  , that mean that we have L copies of a node
 					dmatrix->DistanceMatrix_Reader(i, max);
 				max++;
 			}
@@ -279,6 +279,9 @@ do{
 	}
 	
 	//-----------------------------------LSH---------------------------------------------------
+		
+	cout << "Do you want to run for 3L neighbors?(y/n)" << endl;
+	cin >> option;
 	max = 1;
 	if (metric == 'h')
 	{
@@ -286,7 +289,7 @@ do{
 		hamming->set_c(c);
 		while(getline(qFile, line) && max <= MAX_LSH)     //Start reading queries and put them at lists
 		{
-			hamming->Hamming_LSH(&line[0], outFile, max);
+			hamming->Hamming_LSH(&line[0], outFile, max, option);
 			max++;
 		}
 	}
@@ -296,7 +299,7 @@ do{
 		euclidean->set_c(c);
 		while(getline(qFile, line) && max <= MAX_LSH)     //Start reading queries and put them at lists
 		{
-			euclidean->Euclidean_LSH(&line[0], outFile, max);
+			euclidean->Euclidean_LSH(&line[0], outFile, max, option);
 			max++;
 		}
 	}
@@ -306,7 +309,7 @@ do{
 		cosine->set_c(c);
 		while(getline(qFile, line) && max <= MAX_LSH)     //Start reading queries and put them at lists
 		{
-			cosine->Cosine_LSH(&line[0], outFile, max);
+			cosine->Cosine_LSH(&line[0], outFile, max, option);
 			max++;
 		}
 	}
@@ -316,7 +319,7 @@ do{
 		dmatrix->set_c(c);
 		while(getline(qFile, line) && max <= MAX_LSH)     //Start reading queries and put them at lists
 		{
-			dmatrix->DistanceMatrix_LSH(&line[0], outFile, max);
+			dmatrix->DistanceMatrix_LSH(&line[0], outFile, max, option);
 			max++;
 		}
 	}
@@ -329,6 +332,7 @@ do{
 	else if (metric == 'e')
 	{
 		delete euclidean;
+		array = NULL;
 	}
 	else if (metric == 'c')
 	{
@@ -336,9 +340,11 @@ do{
 	}
 	else if (metric == 'd')
 	{
-		delete dmatrix;		
+		delete dmatrix;	
+		array = NULL;	
 	}
-		
+	
+	
 	qFile.close();
 	
 	do{

@@ -35,6 +35,11 @@ int HashTable<T1,T2>::get_Hashtable_Number()
 {
 	return Hashtable_Number;
 }
+template <class T1,class T2>
+int HashTable<T1,T2>::get_k()
+{
+	return k;
+}
 
 template <class T1,class T2>
 void HashTable<T1,T2>::HashTable_Init(int hash_index, int var_k, int dims, int tsize , char m, int window)    //window is the number of items for distance
@@ -85,8 +90,9 @@ void HashTable<T1,T2>::HashTable_Init(int hash_index, int var_k, int dims, int t
 	}
 }
 
+
 template <class T1,class T2>
-void HashTable<T1, T2>::Insert_Node(Node<T1> *node, int **table)
+int HashTable<T1, T2>::Choose_List(Node<T1> *node, int **table)
 {
 	int list_index = 0;
 	//for hamming and cosine
@@ -157,12 +163,8 @@ void HashTable<T1, T2>::Insert_Node(Node<T1> *node, int **table)
 		}
 		
 		for (int i=0; i <= k -1; i++)
-			t1 += type[i];
-		t1 = t1 / k;
-		
-		for (int i=0; i <= k -1; i++)
 		{
-			if (type[i] >= t1)
+			if (type[i] >= W)		// W is the median (it is the same for all L Hashtables
 				array[i] = '1';
 			else
 				array[i] = '0';
@@ -178,6 +180,15 @@ void HashTable<T1, T2>::Insert_Node(Node<T1> *node, int **table)
 	//memory dismiss
 	delete [] array;
 	
+	return list_index;
+}
+
+
+template <class T1,class T2>
+void HashTable<T1, T2>::Insert_Node(Node<T1> *node, int **table)
+{
+	int list_index = 0;
+	list_index = Choose_List(node, table);	
 	list[list_index].Insert_Node(node);
 }
 
@@ -185,97 +196,8 @@ void HashTable<T1, T2>::Insert_Node(Node<T1> *node, int **table)
 template <class T1,class T2>
 void HashTable<T1, T2>::HashTable_LSH(Node<T1> *node, List<T1> *qlist, int **table)
 {	
-	int list_index = 0;	
-	//for hamming and cosine
-	int exponent = k-1;
-	char *array = new char[k];	
-	//for distance
-	int X1, X2;
-	double type[k];
-	double t1 = 0;	
-	//for euclidean
-	long long int M = pow(2, 32) - 5;
-	int *r = new int[k];
-	int f = 0;
-	int ID;
-	int h[k];
-	char c_h[k];
-	double calculation;
-	if (metric == 'h')
-	{
-		for (int i=0; i <= k - 1; i++)
-			array[i] = Hreturn(node->Data_Return(), gfunction->Hamming_Hreturn(i));
-		for (int i=0; i <= k - 1; i++)
-		{
-			if (array[i] == '1')
-				list_index += pow(2, exponent);        // k bits -> integer
-			exponent--;
-		}
-	}
-	else if (metric == 'e')
-	{
-		for (int i=0; i <= k -1; i++)
-		{
-			calculation = Eswteriko_Ginomeno(node->Data_Return(), gfunction[i].get_hfunctions());
-			calculation = calculation + gfunction->get_t();
-			calculation = calculation / W;
-			h[i] = floor(calculation);
-		}
-		for (int i=0; i <= k -1; i++)
-			f += table[get_Hashtable_Number()][i]*h[i];
-		if (f < 0)
-			f = f *(-1);
-		ID = f % M;
-		list_index = ID % TableSize;
-	}
-	else if (metric == 'c')
-	{
-		for (int i=0; i <= k -1; i++)
-		{
-			calculation = Eswteriko_Ginomeno(node->Data_Return(), gfunction[i].get_hfunctions());
-			if (calculation >= 0)
-				c_h[i] = '1';
-			else
-				c_h[i] = '0';
-		}
-		for (int i=0; i <= k - 1; i++)
-		{
-			if (c_h[i] == '1')
-				list_index += pow(2, exponent);        // k bits -> integer
-			exponent--;
-		}
-	}
-	else if (metric == 'd')
-	{
-		for (int i=0; i <= k -1; i++)
-		{
-			X1 = (gfunction[i].get_hfunctions())[i];
-			X2 = (gfunction[i].get_hfunctions())[i+k];
-			type[i] = (double)(pow((node->get_data())[X1], 2) + pow((node->get_data())[X2], 2) - pow(table[X1][X2], 2))/(2*table[X1][X2]);
-		}
-		
-		for (int i=0; i <= k -1; i++)
-			t1 += type[i];
-		t1 = t1 / k;
-		
-		for (int i=0; i <= k -1; i++)
-		{
-			if (type[i] >= t1)
-				array[i] = '1';
-			else
-				array[i] = '0';
-		}
-		
-		for (int i=0; i <= k - 1; i++)
-		{
-			if (array[i] == '1')
-				list_index += pow(2, exponent);        // k bits -> integer
-			exponent--;
-		}
-	}
-	//memory dismiss
-	delete [] array;
-	
+	int list_index = 0;
+	list_index = Choose_List(node, table);
 	qlist->set_start(list[list_index].get_start());	
 }
 
@@ -316,8 +238,26 @@ void HashTable<T1, T2>::HashTable_Search_All(Node<T1> *node, List<T1> *flist)
 	for(int i=0; i <= TableSize - 1; i++)
 	{
 		if (!list[i].is_empty())
-			flist->Insert_List(&list[i]);
+			flist->Insert_List(&list[i], 1000);
 	}
+}
+
+template <class T1,class T2>
+void HashTable<T1, T2>::t1_Estimation(Node<T1> *node, int **table, double **type)
+{
+	int X1, X2;
+	for (int i = 0; i <= k -1; i++)
+	{
+		X1 = (gfunction[i].get_hfunctions())[i];
+		X2 = (gfunction[i].get_hfunctions())[i+k];
+		type[Hashtable_Number][i] = (double)(pow((node->get_data())[X1], 2) + pow((node->get_data())[X2], 2) - pow(table[X1][X2], 2))/(2*table[X1][X2]);
+	}
+}
+
+template <class T1,class T2>
+void HashTable<T1, T2>::set_Median(int median)
+{
+	W = median;
 }
 
 

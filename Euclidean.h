@@ -26,7 +26,7 @@ class Euclidean
 
 		void printList();
 		
-		void Euclidean_LSH(char *, std::ofstream& output, int);
+		void Euclidean_LSH(char *, std::ofstream& output, int, char);
 };
 
 #endif

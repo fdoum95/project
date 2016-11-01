@@ -27,7 +27,7 @@ class Hamming
 		
 		void printList();
 		
-		void Hamming_LSH(char *, std::ofstream& output, int);
+		void Hamming_LSH(char *, std::ofstream& output, int, char);
 };
 
 #endif

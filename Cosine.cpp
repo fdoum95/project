@@ -1,44 +1,40 @@
-#include "Euclidean.h"
 #include <iostream>
 #include <sstream>
 #include <string>
 #include <math.h>
 #include <stdlib.h>
+#include <iomanip>
+#include "Cosine.h"
 #include <time.h>
 #include "Node.h"
 #include "List.h"
-#include <iomanip>
 
 using namespace std;
 
-Euclidean::Euclidean(int var_k, int var_L, int dimensions, int tsize, int** array)
+Cosine::Cosine(int var_k, int var_L, int dimensions)
 {
-	cout << "An Euclidean class was constructed" << endl;
+	cout << "A Cosine class was constructed" << endl;
 	L = var_L;
 	dims = dimensions;
-	random = array;
 	hashtable = new HashTable<double,double>[L];
 	for (int i=0; i <= L - 1; i++)
 	{
-		hashtable[i].HashTable_Init(i, var_k, dimensions, tsize, 'e', 4);		//4 is the default value for window
+		hashtable[i].HashTable_Init(i, var_k, dimensions, pow(2, var_k), 'c');
 	}
 }
 
-Euclidean::~Euclidean()
+Cosine::~Cosine()
 {
-	for (int i = 0; i <= L-1; i++)
-		delete[] random[i];
-	delete[] random;
-	delete[] hashtable;
-	cout << "Delete Euclidean class" << endl;
+	delete [] hashtable;
+	cout << "Delete Cosine class" << endl;
 }
 
-int Euclidean::get_L(){
+int Cosine::get_L(){
 	return L;
 }
 
 
-void Euclidean::Euclidean_Reader(char *line, int Hash_index, int Number){
+void Cosine::Cosine_Reader(char *line, int Hash_index, int Number){
 	int line_count = 0;
 	char str[20];
 	int j, i=0;
@@ -65,34 +61,34 @@ void Euclidean::Euclidean_Reader(char *line, int Hash_index, int Number){
 		coordinate[i] = atof(str);
 		line_count++;
 	}
-	
+
 	node = new Node<double>(coordinate, dims, Number);
-	
-	hashtable[Hash_index].Insert_Node(node, random);
+	 
+	hashtable[Hash_index].Insert_Node(node);
 }
 
 
-void Euclidean::set_R(double varR)
+
+void Cosine::set_R(double varR)
 {
 	R = varR;
 }
 
-void Euclidean::set_c(double varc)
+void Cosine::set_c(double varc)
 {
 	c = varc;
 }
 
-void Euclidean::Euclidean_LSH(char *line, ofstream& output, int Number, char option){  //Dont care to create one node for all hashtables 
+void Cosine::Cosine_LSH(char *line, ofstream& output, int Number, char option){
 	double time_LSH, time_ALL;
-	double dist;
 	int line_count = 0;
+	double dist = 0;
 	char str[20];
 	int j, i=0;
 	double *coordinate;
 	int NumberItems = 1000;
 	coordinate = new double[dims];
-	
-	Node<double>* node;	
+	Node<double>* node;
 	
 	List<double>* qlist;
 	List<double>* final_list_LSH;
@@ -102,7 +98,7 @@ void Euclidean::Euclidean_LSH(char *line, ofstream& output, int Number, char opt
 		line_count++;
 	line_count++;
 		
-	//Read all coordinates from pointer
+//Read all coordinates from pointer
 	for(int i=0; i <= dims - 1; i++)
 	{
 		j=0;
@@ -116,43 +112,43 @@ void Euclidean::Euclidean_LSH(char *line, ofstream& output, int Number, char opt
 		}
 		str[j] = '\0';
 		coordinate[i] = atof(str);
-	//	cout << setprecision(12) << coordinate[i] << "  " << i << endl;
 		line_count++;
 	}
-		
+
 	node = new Node<double>(coordinate, dims, Number);
 	
 	qlist = new List<double>;
 	final_list_LSH = new List<double>;
 	final_list_ALL = new List<double>;
-
+	
 	output << "Query: Item";
 	output << node->get_Number();
 	output << '\n';
-	
+
 	if (option == 'y')
 		NumberItems = 3*get_L();
-		
+	
 	//Search closer neighbor and if R > 0 find those with dist > R*c and the closest neighbor
 	cout << "item_idS" << Number << '\t';
 	const clock_t begin_time_LSH  = clock();						//time	
 	for(int i=0; i <= L -1; i++)
 	{
-		hashtable[i].HashTable_LSH(node, qlist, random);
+		hashtable[i].HashTable_LSH(node, qlist);
 		final_list_LSH->Insert_List(qlist, NumberItems);
 	}
-	dist = final_list_LSH->Euclidean_Distance(node, R, c, output, 0);			//0 for LSH
+	
+	dist = final_list_LSH->Cosine_Distance(node, R, c, output, 0);			//0 for LSH
 	output << "distanceLSH: ";
 	output << dist;
 	output << '\n';
-	
+		
 	time_LSH = (double)((clock() - begin_time_LSH ) /  (double)CLOCKS_PER_SEC);
 	
 	//Search closer neighbor for ALL
 	const clock_t begin_time_ALL = clock();							//time
 	hashtable[0].HashTable_Search_All(node, final_list_ALL);
 	
-	dist = final_list_ALL->Euclidean_Distance(node, R, c, output, 1);			//1 for ALL
+	dist = final_list_ALL->Cosine_Distance(node, R, c, output, 1);			//1 for True
 	output << "distanceTrue: ";
 	output << dist;
 	output << '\n';
@@ -174,13 +170,11 @@ void Euclidean::Euclidean_LSH(char *line, ofstream& output, int Number, char opt
 }
 
 
-
-void Euclidean::printList(){
+void Cosine::printList(){
 	for (int i=0; i <= L - 1; i++)
 	{
 		cout << "Hashtable " << i << endl;
 		hashtable[i].printList();
 	}
 }
-
 

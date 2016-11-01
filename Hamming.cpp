@@ -68,13 +68,14 @@ void Hamming::Hamming_Reader(char *line, int Hash_index, int Number){
 
 
 
-void Hamming::Hamming_LSH(char *line, ofstream& output, int Number){  //Dont care to create one node for all hashtables
+void Hamming::Hamming_LSH(char *line, ofstream& output, int Number, char option){  //Dont care to create one node for all hashtables
 	double time_LSH, time_ALL;
-	int line_count = 0, i=0;
+	int line_count = 0;
 	int dist;
 	char *bstring;
 	bstring = new char[bsize_return()];
 	char name[4];
+	int NumberItems = 1000;
 	Node<char>* node;
 	
 	List<char>* qlist;
@@ -96,6 +97,10 @@ void Hamming::Hamming_LSH(char *line, ofstream& output, int Number){  //Dont car
 	output << "Query: Item";
 	output << node->get_Number();
 	output << '\n';
+
+	if (option == 'y')
+		NumberItems = 3*get_L();
+		
 	
 	//Search closer neighbor and if R > 0 find those with dist > R*c and the closest neighbor
 	cout << "item_idS" << Number << '\t';
@@ -103,7 +108,7 @@ void Hamming::Hamming_LSH(char *line, ofstream& output, int Number){  //Dont car
 	for(int i=0; i <= L -1; i++)
 	{
 		hashtable[i].HashTable_LSH(node, qlist);
-		final_list_LSH->Insert_List(qlist);
+		final_list_LSH->Insert_List(qlist, NumberItems);
 	}
 
 	dist = final_list_LSH->Hamming_Distance(node, R, c, output, 0);			//0 for LSH
@@ -113,7 +118,7 @@ void Hamming::Hamming_LSH(char *line, ofstream& output, int Number){  //Dont car
 	
 	time_LSH = (double)((clock() - begin_time_LSH ) /  (double)CLOCKS_PER_SEC);
 	
-	//Search closer neighbor and if R > 0 find tose with dist > R*c
+	//Search closer neighbor for ALL
 	const clock_t begin_time_ALL = clock();							//time
 	hashtable[0].HashTable_Search_All(node, final_list_ALL);
 
