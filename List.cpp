@@ -9,7 +9,7 @@ using namespace std;
 template <class T>
 List<T>::List()
 {
-	//cout << "A list was created." << endl;
+//	cout << "A list was created." << endl;
 	list_size = 0;
 	start = NULL;
 }
@@ -27,13 +27,19 @@ List<T>::~List()
         list_size--;
         delete del_node;
     }
-    //cout << "A list was deleted" << endl;
+//  cout << "A list was deleted" << endl;
 }
 
 template <class T>
 bool List<T>::is_empty()
 {
 	return (list_size == 0);
+}
+
+template <class T>
+int List<T>::get_ListSize()
+{
+	return list_size;
 }
 
 template <class T>
@@ -54,15 +60,51 @@ void List<T>::Insert_Node(Node<T> *node)
 
 
 template <class T>
+void List<T>::Insert_Node_End(Node<T> *node)
+{
+	//insert node at the beginnning of the list
+	//cout << "A node was inserted to a list " << endl;
+	Node<T>* current = start;
+	if (is_empty()){
+		start = node;
+	}
+	else{
+		while (current->get_next() != NULL)
+			current = current->get_next();
+		current->set_next(node);
+	}
+	list_size++;
+}
+
+template <class T>
+void List<T>::Clear_List()
+{
+	Node<T>* current = start;
+	Node<T>* del_node;
+	
+    while(current != NULL)  //diagrafoume enan enan tous komvous
+    {
+        del_node = current;
+        current = current->get_next();
+        delete del_node;
+    }
+    
+    list_size = 0;
+    start = NULL;
+}
+
+template <class T>
 void List<T>::printList()
 {
 	Node<T>* current = start;
 	
     while(current != NULL) 
     {
+    	if (current->get_CentroidValue())
+    		cout << "Centroid ";
         current->printNode();
         current = current->get_next();
-        cout << "   ";
+        cout << "\t";
     }
     cout << endl;
 }
@@ -72,12 +114,71 @@ Node<T> *List<T>::get_start()
 {
 	return start;
 }
-		
+
 template <class T>
 void List<T>::set_start(Node<T> *s)
 {
 	start = s;
 }
+
+template <class T>
+void List<T>::set_List_size(int num)
+{
+	list_size = num;
+}
+
+template <class T>
+Node<T> *List<T>::get_random_Node(int Number)
+{
+	int count=0;
+	Node<T>* current = start;
+	
+    while(current != NULL) 
+    {
+    	if (count == Number)
+    	{
+    		return current;
+		}
+        current = current->get_next();
+        count++;
+    }
+	return NULL;
+}
+
+template <class T>
+Node<T> *List<T>::get_Node(int Number)
+{
+	Node<T>* current = start;
+	
+    while(current != NULL) 
+    {
+    	if (current->get_Number() == Number)
+    	{
+    		return current;
+		}
+        current = current->get_next();
+    }
+	return NULL;
+}
+
+
+
+template <class T>
+Node<T> *List<T>::get_Node_Table_Number(int Number)
+{
+	Node<T>* current = start;
+	
+    while(current != NULL) 
+    {
+    	if (current->get_Number_Table() == Number)
+    	{
+    		return current;
+		}
+        current = current->get_next();
+    }
+	return NULL;
+}
+
 
 template <class T>
 void List<T>::Insert_List(List<T> *qlist, int N_Items)
@@ -92,7 +193,7 @@ void List<T>::Insert_List(List<T> *qlist, int N_Items)
 		new_data = new T[current->get_size()];
 		for(int i=0; i <= current->get_size() -1; i++)
 			new_data[i] = current->get_data()[i];
-		new_node = new Node<T>(new_data, current->get_size(), current->get_Number());
+		new_node = new Node<T>(new_data, current->get_size(), current->get_Number(), current->get_Number_Table());
 		if (Check(new_node))
 		{
 			Insert_Node(new_node);
@@ -103,6 +204,55 @@ void List<T>::Insert_List(List<T> *qlist, int N_Items)
 			delete new_node;
 		}	
 		current = current->get_next();
+	}
+}
+
+
+template <class T>
+void List<T>::Insert_List(List<T> *qlist)
+{
+	Node<T>* current = qlist->get_start();
+	Node<T>* new_node;
+	T* new_data;
+	int count = 0;
+	
+	while(current != NULL)
+	{
+		new_data = new T[current->get_size()];
+		for(int i=0; i <= current->get_size() -1; i++)
+			new_data[i] = current->get_data()[i];
+		new_node = new Node<T>(new_data, current->get_size(), current->get_Number(), current->get_Number_Table());
+		if (Check(new_node))
+		{
+			Insert_Node(new_node);
+			count++;
+		}
+		else
+		{
+			delete new_node;
+		}	
+		current = current->get_next();
+	}
+}
+
+
+template <class T>
+void List<T>::Insert_Cluster_List(List<T> *clist)
+{
+	Node<T> *current = start;
+	if (start == NULL)
+	{
+		start = clist->get_start();
+		list_size = clist->get_ListSize();
+	}
+	else
+	{
+		while(current->get_next() != NULL)
+		{	
+			current = current->get_next();
+		}
+		current->set_next(clist->get_start());
+		list_size += clist->get_ListSize();
 	}
 }
 
@@ -361,7 +511,7 @@ int List<T>::DistanceMatrix_Distance(Node<T>* query, double R, double c, ofstrea
 	{
 		while(current != NULL)
 		{
-			if ((query->get_data()[current->get_Number()]) <= R*c && (query->get_data()[current->get_Number()]) > 0)
+			if ((query->get_data()[current->get_Number()-1]) <= R*c && (query->get_data()[current->get_Number()-1]) > 0)
 			{
 				if (tag == 0){
 					output << "Item";
@@ -376,9 +526,9 @@ int List<T>::DistanceMatrix_Distance(Node<T>* query, double R, double c, ofstrea
 	current = start;
 	while(current != NULL)
 	{
-		if ((query->get_data()[current->get_Number()]) < min && (query->get_data()[current->get_Number()]) > 0)  //expect itself
+		if ((query->get_data()[current->get_Number()-1]) < min && (query->get_data()[current->get_Number()-1]) > 0)  //expect itself
 		{
-			min = query->get_data()[current->get_Number()];
+			min = query->get_data()[current->get_Number()-1];
 			closer_neighbor = current;
 		}
 		current = current->get_next();

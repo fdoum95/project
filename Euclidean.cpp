@@ -38,17 +38,32 @@ int Euclidean::get_L(){
 }
 
 
-void Euclidean::Euclidean_Reader(char *line, int Hash_index, int Number){
+void Euclidean::Euclidean_Reader(char *line, int Hash_index, int NumberTable)
+{
 	int line_count = 0;
 	char str[20];
-	int j, i=0;
+	char NumItem[10];
+	int j, it = 0;
+	int ItemNumber = 0;
 	double *coordinate;
 	coordinate = new double[dims];
 	Node<double>* node;
-	while(line[line_count] != '\t')
+	
+	while(line[line_count] != 'm')		//1' || line[line_count] != '2' || line[line_count] != '3' || line[line_count] != '4' || line[line_count] != '5' || line[line_count] != '6' || line[line_count] != '7' || line[line_count] != '8' || line[line_count] != '9')
 		line_count++;
 	line_count++;
-		
+	
+	while(line[line_count] != '\t')
+	{
+		NumItem[it] = line[line_count];
+		line_count++;
+		it++;
+	}
+	NumItem[it] = '\0';
+	line_count++;
+	
+	ItemNumber = atoi(NumItem);
+	
 //Read all coordinates from pointer
 	for(int i=0; i <= dims - 1; i++)
 	{
@@ -66,7 +81,7 @@ void Euclidean::Euclidean_Reader(char *line, int Hash_index, int Number){
 		line_count++;
 	}
 	
-	node = new Node<double>(coordinate, dims, Number);
+	node = new Node<double>(coordinate, dims, ItemNumber, NumberTable);
 	
 	hashtable[Hash_index].Insert_Node(node, random);
 }
@@ -120,7 +135,7 @@ void Euclidean::Euclidean_LSH(char *line, ofstream& output, int Number, char opt
 		line_count++;
 	}
 		
-	node = new Node<double>(coordinate, dims, Number);
+//	node = new Node<double>(coordinate, dims, Number);
 	
 	qlist = new List<double>;
 	final_list_LSH = new List<double>;
@@ -171,6 +186,24 @@ void Euclidean::Euclidean_LSH(char *line, ofstream& output, int Number, char opt
 	delete qlist;
 	delete final_list_LSH;
 	delete final_list_ALL;
+}
+
+
+List<double> *Euclidean::LSH_Cluster_Euclidean(Node<double> *centroid)			//return the final list that is belonged the centroid
+{
+	List<double>* qlist;
+	List<double>* final_list_LSH;
+	
+	qlist = new List<double>;
+	final_list_LSH = new List<double>;
+	
+	for(int i=0; i <= L -1; i++)
+	{
+		hashtable[i].HashTable_LSH(centroid, qlist, random);
+		final_list_LSH->Insert_List(qlist);
+	}
+	
+	return final_list_LSH;	
 }
 
 

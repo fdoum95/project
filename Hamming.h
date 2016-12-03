@@ -4,6 +4,8 @@
 #include <fstream>
 #include <iostream>
 #include "Hashtable.h"
+#include "List.h"
+#include "Node.h"
 
 class Hamming
 {
@@ -28,6 +30,8 @@ class Hamming
 		void printList();
 		
 		void Hamming_LSH(char *, std::ofstream& output, int, char);
+		
+		List<char> *LSH_Cluster_Hamming(Node<char> *);
 };
 
 #endif

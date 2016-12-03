@@ -1,8 +1,8 @@
 # In  order  to  execute  this  "Makefile " just  type  "make "
-OBJS     = main.o Hamming.o Euclidean.o Cosine.o DistanceMatrix.o Hashtable.o Heuristic.o List.o Node.o Random.o
-SOURCE   = main.cpp Hamming.cpp Euclidean.cpp Cosine.cpp DistanceMatrix.cpp Hashtable.cpp Heuristic.cpp List.cpp Node.cpp Random.cpp
-HEADER   = Hamming.h Euclidean.h Cosine.h DistanceMatrix.h Hashtable.h Heuristic.h List.h Node.h Random.h
-OUT      = lsh
+OBJS     = main.o Hamming.o Euclidean.o Cosine.o DistanceMatrix.o Hashtable.o Heuristic.o List.o Node.o Random.o Centroid.o Cluster.o ClusterCosine.o ClusterDistanceMatrix.o ClusterEuclidean.o ClusterHamming.o Space.o
+SOURCE   = main.cpp Hamming.cpp Euclidean.cpp Cosine.cpp DistanceMatrix.cpp Hashtable.cpp Heuristic.cpp List.cpp Node.cpp Random.cpp Centroid.cpp ClusterCosine.cpp ClusterDistanceMatrix.cpp ClusterEuclidean.cpp ClusterHamming.cpp Space.cpp
+HEADER   = Hamming.h Euclidean.h Cosine.h DistanceMatrix.h Hashtable.h Heuristic.h List.h Node.h Random.h Centroid.h Cluster.h ClusterCosine.h ClusterEuclidean.h ClusterHamming.h Space.h
+OUT      = medoids
 CC       = g++
 FLAGS    = -g -c
 # -g  option  enables  debugging  mode
@@ -40,6 +40,27 @@ Node.o: Node.cpp Node.h
 
 Random.o: Random.cpp Random.h
 	$(CC) $(FLAGS) Random.cpp
+
+Centroid.o: Centroid.cpp Centroid.h
+	$(CC) $(FLAGS) Centroid.cpp
+
+Cluster.o: Cluster.cpp Cluster.h
+	$(CC) $(FLAGS) Cluster.cpp
+
+ClusterCosine.o: ClusterCosine.cpp ClusterCosine.h
+	$(CC) $(FLAGS) ClusterCosine.cpp
+
+ClusterDistanceMatrix.o: ClusterDistanceMatrix.cpp ClusterDistanceMatrix.h
+	$(CC) $(FLAGS) ClusterDistanceMatrix.cpp
+
+ClusterEuclidean.o: ClusterEuclidean.cpp ClusterEuclidean.h
+	$(CC) $(FLAGS) ClusterEuclidean.cpp
+
+ClusterHamming.o: ClusterHamming.cpp ClusterHamming.h
+	$(CC) $(FLAGS) ClusterHamming.cpp
+
+Space.o: Space.cpp Space.h
+	$(CC) $(FLAGS) Space.cpp 
 
 #  clean  house
 clean :

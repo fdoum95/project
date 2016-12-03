@@ -27,13 +27,15 @@ class DistanceMatrix
 		void set_R(double);
 		void set_c(double);
 		
-		void DistanceMatrix_Reader(int, int);
+		void DistanceMatrix_Reader(int, int, int);
+		
+		List<int> *LSH_Cluster_DistanceMatrix(Node<int> *centroid);
 		
 		void printList();
 		
 		void DistanceMatrix_LSH(char *, std::ofstream& output, int, char);
 		
-		void set_Median(Node<int> *);
+		void set_Median(Node<int> *, int);
 };
 
 #endif

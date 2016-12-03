@@ -27,6 +27,8 @@ class Cosine
 		void printList();
 
 		void Cosine_LSH(char *, std::ofstream& output, int, char);
+		
+		List<double> *LSH_Cluster_Cosine(Node<double> *);
 };
 
 #endif

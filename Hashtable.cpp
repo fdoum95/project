@@ -84,7 +84,7 @@ void HashTable<T1,T2>::HashTable_Init(int hash_index, int var_k, int dims, int t
 		gfunction = new Heuristic<T2>[k];
 		for (int i=0; i <= k-1; i++)
 		{
-			gfunction[i].Heuristic_Init(metric, 2*k);		//to save x1 and x2 , 2 vars => k * 2
+			gfunction[i].Heuristic_Init(metric, 2);		//to save x1 and x2 , 2 vars => k * 2
 			gfunction[i].DistanceMatrix_Random(W);
 		}
 	}
@@ -157,8 +157,8 @@ int HashTable<T1, T2>::Choose_List(Node<T1> *node, int **table)
 	{
 		for (int i=0; i <= k -1; i++)
 		{
-			X1 = (gfunction[i].get_hfunctions())[i];
-			X2 = (gfunction[i].get_hfunctions())[i+k];
+			X1 = (gfunction[i].get_hfunctions())[0];
+			X2 = (gfunction[i].get_hfunctions())[1];
 			type[i] = (double)(pow((node->get_data())[X1], 2) + pow((node->get_data())[X2], 2) - pow(table[X1][X2], 2))/(2*table[X1][X2]);
 		}
 		
@@ -198,7 +198,7 @@ void HashTable<T1, T2>::HashTable_LSH(Node<T1> *node, List<T1> *qlist, int **tab
 {	
 	int list_index = 0;
 	list_index = Choose_List(node, table);
-	qlist->set_start(list[list_index].get_start());	
+	qlist->set_start(list[list_index].get_start());
 }
 
 
@@ -243,14 +243,14 @@ void HashTable<T1, T2>::HashTable_Search_All(Node<T1> *node, List<T1> *flist)
 }
 
 template <class T1,class T2>
-void HashTable<T1, T2>::t1_Estimation(Node<T1> *node, int **table, double **type)
+void HashTable<T1, T2>::t1_Estimation(Node<T1> *node, int **table, double *type)
 {
 	int X1, X2;
 	for (int i = 0; i <= k -1; i++)
 	{
-		X1 = (gfunction[i].get_hfunctions())[i];
-		X2 = (gfunction[i].get_hfunctions())[i+k];
-		type[Hashtable_Number][i] = (double)(pow((node->get_data())[X1], 2) + pow((node->get_data())[X2], 2) - pow(table[X1][X2], 2))/(2*table[X1][X2]);
+		X1 = (gfunction[i].get_hfunctions())[0];
+		X2 = (gfunction[i].get_hfunctions())[1];
+		type[i] = (double)(pow((node->get_data())[X1], 2) + pow((node->get_data())[X2], 2) - pow(table[X1][X2], 2))/(2*table[X1][X2]);
 	}
 }
 

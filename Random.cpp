@@ -31,3 +31,6 @@ double uniform_distribution_real(int M, int N){
 	return (M + ((double)rand()/ (RAND_MAX))*(N-M));    
 }
 
+float uniform_distribution_float(float M, float N){
+	return (M + ((double)rand()/ (RAND_MAX))*(N-M));    
+}

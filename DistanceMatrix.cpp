@@ -55,7 +55,8 @@ void DistanceMatrix::set_c(double varc)
 	c = varc;
 }
 
-void DistanceMatrix::DistanceMatrix_Reader(int Hash_index, int Number){
+
+void DistanceMatrix::DistanceMatrix_Reader(int Hash_index, int Number, int TableNumber){
 	int line_count = 0;
 	int *dist;
 	dist = new int[get_nitems()];
@@ -65,12 +66,10 @@ void DistanceMatrix::DistanceMatrix_Reader(int Hash_index, int Number){
 	for(int i=0; i <= get_nitems() - 1; i++)
 		dist[i] = table[Number-1][i];
 	
-	node = new Node<int>(dist, get_nitems(), Number);
+	node = new Node<int>(dist, get_nitems(), Number, TableNumber);
 	
-	if (Hash_index == 0)		//Do it one time
-	{
-		set_Median(node);		//W(median) is changed for all Hashtables
-	}
+	set_Median(node, Hash_index);		//W(median) is changed for all Hashtables
+	
 	hashtable[Hash_index].Insert_Node(node, table);
 }
 
@@ -90,6 +89,9 @@ void DistanceMatrix::DistanceMatrix_LSH(char *line, ofstream& output, int Number
 	List<int>* final_list_ALL;
 	
 	int *distance = new int[get_nitems()];
+	while(line[line_count] != '\t')
+		line_count++;
+	line_count++;
 	while(line[line_count] != '\0')
 	{
 		if (line[line_count] != '\t')
@@ -110,9 +112,10 @@ void DistanceMatrix::DistanceMatrix_LSH(char *line, ofstream& output, int Number
 	str[in] = '\0';
 	distance[tn] = atof(str); //last element	int *dist;
 	
-	node = new Node<int>(distance, get_nitems(), Number);
+//	node = new Node<int>(distance, get_nitems(), Number);
 	
-	set_Median(node);					//W(median) is changed for all Hashtables
+	for(int i=0; i <= get_L() - 1; i++)
+		set_Median(node, i);					//W(median) is changed for all Hashtables
 	
 	qlist = new List<int>;
 	final_list_LSH = new List<int>;
@@ -168,7 +171,22 @@ void DistanceMatrix::DistanceMatrix_LSH(char *line, ofstream& output, int Number
 	delete final_list_ALL;
 }
 
-
+List<int> *DistanceMatrix::LSH_Cluster_DistanceMatrix(Node<int> *centroid)			//return the final list that is belonged the centroid
+{
+	List<int>* qlist;
+	List<int>* final_list_LSH;
+	
+	qlist = new List<int>;
+	final_list_LSH = new List<int>;
+	
+	for(int i=0; i <= L -1; i++)
+	{
+		hashtable[i].HashTable_LSH(centroid, qlist, table);
+		final_list_LSH->Insert_List(qlist);
+	}
+	
+	return final_list_LSH;	
+}
 
 void DistanceMatrix::printList(){
 	for (int i=0; i <= L - 1; i++)
@@ -178,37 +196,20 @@ void DistanceMatrix::printList(){
 	}
 }
 
-void DistanceMatrix::set_Median(Node<int> *node)
+void DistanceMatrix::set_Median(Node<int> *node, int Hash_Index)
 {
-	int k = hashtable[0].get_k();
+	int k = hashtable[Hash_Index].get_k();
 	int median;
-	double *T1 = new double[k*L];
-	double **array = new double*[L];
-	for(int i=0; i <= L - 1; i++)
-		array[i] = new double[k];
+	double *T1 = new double[k];
 	
-	for(int i=0; i <= L - 1; i++)
-	{
-		hashtable[i].t1_Estimation(node, table, array);
-	}
+	hashtable[Hash_Index].t1_Estimation(node, table, T1);
 	
 	int t =0;
-	for(int i=0; i <= L - 1; i++)
-	{
-		for(int j=0; j <= k - 1; j++)
-		{
-			T1[t] = array[i][j];
-			t++;
-			//cout << T1[t-1] << "  ";
-		}
-	}
-	//cout << endl;
-	
-	int length = k*L - 1;
-	int end = k*L - 1;
+	int length = k - 1;
+	int end = k - 1;
 	double temp;
 
-	for(int count = k*L ; count > 0; count--)
+	for(int count = k ; count > 0; count--)
 	{	
 		for (int index =0; index < end; index++)
 		{
@@ -222,14 +223,13 @@ void DistanceMatrix::set_Median(Node<int> *node)
 		end--;
 	}
 	
-	median = T1[(k*L-1)/2];
+	if (k % 2 == 0)
+		median = (T1[(k-1)/2] + T1[(k-1)/2 + 1])/2;
+	else
+		median = T1[(k-1)/2];
 		
-	for(int i =0; i <= L -1; i++)
-		hashtable[i].set_Median(median);
+	hashtable[Hash_Index].set_Median(median);
 	
-	for(int i=0; i <= L - 1; i++)
-		delete [] array[i];
-	delete [] array;
 	delete [] T1;
 		
 }

@@ -5,12 +5,15 @@
 using namespace std;
 
 template <class T>
-Node<T>::Node(T* Dt, int s, int N)
+Node<T>::Node(T* Dt, int s, int N, int Ntable)
 {
 	//cout << "A Node was created." << endl;
 	number = N;
+	number_in_table = Ntable;
 	data = Dt;
 	size = s; //xreiazetai mono sthn cout opote mallon 8a afaire8ei
+	is_centroid = false;
+	LSH_is_assigned = false;
 	next = NULL;
 }
 
@@ -25,7 +28,6 @@ T* Node<T>::Data_Return()
 {
 	return data;
 }
-
 
 template <class T>
 void Node<T>::set_next(Node<T> *node)
@@ -52,6 +54,31 @@ T* Node<T>::get_data()
 }
 
 template <class T>
+void Node<T>::set_Number_Table(int i)
+{
+	number_in_table = i;
+}
+
+template <class T>
+void Node<T>::set_CentroidValue()
+{
+	is_centroid = true;
+}
+
+template <class T>
+bool Node<T>::get_CentroidValue()
+{
+	return is_centroid;
+}
+
+
+template <class T>
+void Node<T>::set_notCentroidValue()
+{
+	is_centroid = false;
+}
+
+template <class T>
 void Node<T>::printNode()
 {
 //	cout << data << "     ";
@@ -65,6 +92,12 @@ template <class T>
 int Node<T>::get_Number()
 {
 	return number;
+}
+
+template <class T>
+int Node<T>::get_Number_Table()
+{
+	return number_in_table;
 }
 
 

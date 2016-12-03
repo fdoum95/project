@@ -62,14 +62,11 @@ void Heuristic<T>::Cosine_Random()
 template <class T>
 void Heuristic<T>::DistanceMatrix_Random(int nItems)
 {
-	for (int i = 0; i <= dims/2 - 1; i++)
+	hfunctions[0] = uniform_distribution(1, nItems);
+	do
 	{
-		hfunctions[i] = uniform_distribution(1, nItems);
-		do
-		{
-			hfunctions[dims/2 + i] = uniform_distribution(1, nItems);
-		}while(hfunctions[i] == hfunctions[dims/2 + i]);
-	}
+		hfunctions[1] = uniform_distribution(1, nItems);
+	}while(hfunctions[0] == hfunctions[1]);
 }
 
 template <class T>

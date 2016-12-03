@@ -40,7 +40,7 @@ class HashTable
 		
 		void HashTable_Search_All(Node<T1> *, List<T1> *);
 		
-		void t1_Estimation(Node<T1> *node, int **table, double **type);
+		void t1_Estimation(Node<T1> *node, int **table, double *type);
 		
 		void set_Median(int);
 };

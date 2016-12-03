@@ -27,6 +27,8 @@ class Euclidean
 		void printList();
 		
 		void Euclidean_LSH(char *, std::ofstream& output, int, char);
+		
+		List<double> *LSH_Cluster_Euclidean(Node<double> *);
 };
 
 #endif

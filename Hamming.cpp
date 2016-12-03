@@ -49,19 +49,33 @@ void Hamming::set_c(double varc)
 	c = varc;
 }
 
-void Hamming::Hamming_Reader(char *line, int Hash_index, int Number){
-	int line_count = 0;
+void Hamming::Hamming_Reader(char *line, int Hash_index, int NumberTable){
+	//Create Nodes for each item 
+	int line_count = 0, it = 0;
 	char *bstring;
+	char NumItem[10];
+	int ItemNumber = 0;
 	bstring = new char[bsize_return()];
 	Node<char>* node;
 	
-	while(line[line_count] != '\t')
+	while(line[line_count] != 'm')		//1' || line[line_count] != '2' || line[line_count] != '3' || line[line_count] != '4' || line[line_count] != '5' || line[line_count] != '6' || line[line_count] != '7' || line[line_count] != '8' || line[line_count] != '9')
 		line_count++;
 	line_count++;
 	
+	while(line[line_count] != '\t')
+	{
+		NumItem[it] = line[line_count];
+		line_count++;
+		it++;
+	}
+	NumItem[it] = '\0';
+	line_count++;
+	
+	ItemNumber = atoi(NumItem);
+	
 	strcpy(bstring, &line[line_count]);  //copy bit string from line to bstring
 	
-	node = new Node<char>(&bstring[0], bsize_return(), Number);
+	node = new Node<char>(&bstring[0], bsize_return(), ItemNumber, NumberTable);
 	
 	hashtable[Hash_index].Insert_Node(node);
 }
@@ -87,8 +101,6 @@ void Hamming::Hamming_LSH(char *line, ofstream& output, int Number, char option)
 	line_count++;
 	
 	strcpy(bstring, &line[line_count]);  //copy bit string from line to bstring
-	
-	node = new Node<char>(&bstring[0], bsize_return(), Number);
 	
 	qlist = new List<char>;
 	final_list_LSH = new List<char>;
@@ -143,6 +155,23 @@ void Hamming::Hamming_LSH(char *line, ofstream& output, int Number, char option)
 	delete final_list_ALL;
 }
 
+
+List<char> *Hamming::LSH_Cluster_Hamming(Node<char> *centroid)			//return the final list that is belonged the centroid
+{
+	List<char>* qlist;
+	List<char>* final_list_LSH;
+	
+	qlist = new List<char>;
+	final_list_LSH = new List<char>;
+	
+	for(int i=0; i <= L -1; i++)
+	{
+		hashtable[i].HashTable_LSH(centroid, qlist);
+		final_list_LSH->Insert_List(qlist);
+	}
+	
+	return final_list_LSH;	
+}
 
 void Hamming::printList(){
 	for (int i=0; i <= L - 1; i++)
