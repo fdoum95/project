@@ -1,311 +1,117 @@
-Query: Item1
-R-near neighbors:
-Nearest neighbor: 942
-distanceLSH: 25
-distanceTrue: 7
-tLSH: 0.003917
-tTrue: 0.076932
-
-Query: Item2
-R-near neighbors:
-Item803
-Item833
-Item837
-Item839
-Item841
-Item846
-Item847
-Item817
-Item838
-Item848
-Nearest neighbor: 839
-distanceLSH: 4
-distanceTrue: 2
-tLSH: 0.004127
-tTrue: 0.074734
-
-Query: Item3
-R-near neighbors:
-Nearest neighbor: 308
-distanceLSH: 13
-distanceTrue: 6
-tLSH: 0.00279
-tTrue: 0.074877
-
-Query: Item4
-R-near neighbors:
-Item758
-Item764
-Item767
-Item775
-Item787
-Item793
-Nearest neighbor: 758
-distanceLSH: 8
-distanceTrue: 8
-tLSH: 0.00399
-tTrue: 0.07483
-
-Query: Item5
-R-near neighbors:
-Item861
-Item868
-Item869
-Item871
-Item877
-Item875
-Item876
-Item878
-Item883
-Item887
-Item889
-Item898
-Nearest neighbor: 889
-distanceLSH: 6
-distanceTrue: 5
-tLSH: 0.003759
-tTrue: 0.075075
-
-Query: Item6
-R-near neighbors:
-Nearest neighbor: 998
-distanceLSH: 20
-distanceTrue: 8
-tLSH: 0.005045
-tTrue: 0.07588
-
-Query: Item7
-R-near neighbors:
-Nearest neighbor: 308
-distanceLSH: 15
-distanceTrue: 6
-tLSH: 0.003088
-tTrue: 0.075472
-
-Query: Item8
-R-near neighbors:
-Item548
-Nearest neighbor: 548
-distanceLSH: 8
-distanceTrue: 6
-tLSH: 0.003852
-tTrue: 0.075157
-
-Query: Item9
-R-near neighbors:
-Item714
-Item735
-Item736
-Nearest neighbor: 714
-distanceLSH: 8
-distanceTrue: 7
-tLSH: 0.004392
-tTrue: 0.074957
-
-Query: Item10
-R-near neighbors:
-Nearest neighbor: 846
-distanceLSH: 17
-distanceTrue: 10
-tLSH: 0.004109
-tTrue: 0.074761
-
-Query: Item11
-R-near neighbors:
-Nearest neighbor: 767
-distanceLSH: 9
-distanceTrue: 9
-tLSH: 0.003828
-tTrue: 0.075052
-
-Query: Item12
-R-near neighbors:
-Item866
-Item867
-Item870
-Item898
-Nearest neighbor: 867
-distanceLSH: 6
-distanceTrue: 6
-tLSH: 0.004486
-tTrue: 0.075298
-
-Query: Item13
-R-near neighbors:
-Item803
-Item829
-Item832
-Item833
-Item837
-Item838
-Item839
-Item846
-Item848
-Item850
-Item819
-Item822
-Item824
-Item826
-Item831
-Item835
-Item841
-Item842
-Nearest neighbor: 839
-distanceLSH: 4
-distanceTrue: 4
-tLSH: 0.00421
-tTrue: 0.074935
-
-Query: Item14
-R-near neighbors:
-Nearest neighbor: 967
-distanceLSH: 17
-distanceTrue: 6
-tLSH: 0.003328
-tTrue: 0.074998
-
-Query: Item15
-R-near neighbors:
-Nearest neighbor: 486
-distanceLSH: 20
-distanceTrue: 7
-tLSH: 0.003606
-tTrue: 0.07447
-
-Query: Item16
-R-near neighbors:
-Nearest neighbor: 846
-distanceLSH: 21
-distanceTrue: 2
-tLSH: 0.004251
-tTrue: 0.075145
-
-Query: Item17
-R-near neighbors:
-Nearest neighbor: 921
-distanceLSH: 27
-distanceTrue: 6
-tLSH: 0.004434
-tTrue: 0.075274
-
-Query: Item18
-R-near neighbors:
-Item627
-Item642
-Item645
-Item648
-Nearest neighbor: 627
-distanceLSH: 5
-distanceTrue: 3
-tLSH: 0.004556
-tTrue: 0.075408
-
-Query: Item19
-R-near neighbors:
-Item912
-Nearest neighbor: 912
-distanceLSH: 8
-distanceTrue: 8
-tLSH: 0.004605
-tTrue: 0.07526
-
-Query: Item20
-R-near neighbors:
-Nearest neighbor: 840
-distanceLSH: 24
-distanceTrue: 6
-tLSH: 0.004418
-tTrue: 0.088652
-
-Query: Item21
-R-near neighbors:
-Nearest neighbor: 998
-distanceLSH: 20
-distanceTrue: 8
-tLSH: 0.005047
-tTrue: 0.088254
-
-Query: Item22
-R-near neighbors:
-Nearest neighbor: 843
-distanceLSH: 25
-distanceTrue: 6
-tLSH: 0.004215
-tTrue: 0.087005
-
-Query: Item23
-R-near neighbors:
-Item142
-Item144
-Item145
-Item148
-Nearest neighbor: 144
-distanceLSH: 6
-distanceTrue: 3
-tLSH: 0.004158
-tTrue: 0.090625
-
-Query: Item24
-R-near neighbors:
-Nearest neighbor: 941
-distanceLSH: 26
-distanceTrue: 4
-tLSH: 0.003817
-tTrue: 0.087123
-
-Query: Item25
-R-near neighbors:
-Nearest neighbor: 925
-distanceLSH: 9
-distanceTrue: 9
-tLSH: 0.004839
-tTrue: 0.088152
-
-Query: Item26
-R-near neighbors:
-Item752
-Item756
-Item758
-Item767
-Item782
-Item783
-Item787
-Item793
-Nearest neighbor: 793
-distanceLSH: 5
-distanceTrue: 5
-tLSH: 0.00372
-tTrue: 0.088598
-
-Query: Item27
-R-near neighbors:
-Nearest neighbor: 882
-distanceLSH: 24
-distanceTrue: 8
-tLSH: 0.004026
-tTrue: 0.088872
-
-Query: Item28
-R-near neighbors:
-Nearest neighbor: 956
-distanceLSH: 24
-distanceTrue: 10
-tLSH: 0.003693
-tTrue: 0.089453
-
-Query: Item29
-R-near neighbors:
-Nearest neighbor: 247
-distanceLSH: 17
-distanceTrue: 8
-tLSH: 0.003428
-tTrue: 0.075503
-
-Query: Item30
-R-near neighbors:
-Nearest neighbor: 946
-distanceLSH: 25
-distanceTrue: 9
-tLSH: 0.005096
-tTrue: 0.075539
-
+Algorithm: I1A1U1, x = {1,2} 
+CLUSTER-0 {size: 99, medoid: item114}
+CLUSTER-1 {size: 99, medoid: item341}
+CLUSTER-2 {size: 99, medoid: item470}
+CLUSTER-3 {size: 99, medoid: item900}
+CLUSTER-4 {size: 99, medoid: item502}
+CLUSTER-5 {size: 99, medoid: item927}
+CLUSTER-6 {size: 99, medoid: item797}
+CLUSTER-7 {size: 99, medoid: item268}
+CLUSTER-8 {size: 99, medoid: item634}
+CLUSTER-9 {size: 99, medoid: item47}
+clustering_time: 0.019 //in seconds
+Silhouette: [0.617268,0.580067,0.592006,0.597221,0.585588,0.590652,0.589066,0.582962,0.587838,0.586198,0.590887]
+Algorithm: I1A1U2, x = {1,2} 
+CLUSTER-0 {size: 99, medoid: item643}
+CLUSTER-1 {size: 99, medoid: item830}
+CLUSTER-2 {size: 99, medoid: item384}
+CLUSTER-3 {size: 99, medoid: item565}
+CLUSTER-4 {size: 99, medoid: item422}
+CLUSTER-5 {size: 99, medoid: item238}
+CLUSTER-6 {size: 99, medoid: item790}
+CLUSTER-7 {size: 99, medoid: item107}
+CLUSTER-8 {size: 99, medoid: item47}
+CLUSTER-9 {size: 99, medoid: item921}
+clustering_time: 0.133 //in seconds
+Silhouette: [0.599064,0.625538,0.587672,0.587892,0.594429,0.616342,0.598682,0.639419,0.597218,0.607212,0.605347]
+Algorithm: I1A2U1, x = {1,2} 
+CLUSTER-0 {size: 19, medoid: item175}
+CLUSTER-1 {size: 80, medoid: item156}
+CLUSTER-2 {size: 141, medoid: item302}
+CLUSTER-3 {size: 109, medoid: item542}
+CLUSTER-4 {size: 182, medoid: item892}
+CLUSTER-5 {size: 113, medoid: item54}
+CLUSTER-6 {size: 100, medoid: item618}
+CLUSTER-7 {size: 125, medoid: item727}
+CLUSTER-8 {size: 25, medoid: item974}
+CLUSTER-9 {size: 96, medoid: item1000}
+clustering_time: 0.011 //in seconds
+Silhouette: [-0.0309514,0.164353,0.359147,0.508386,0.369496,0.469429,0.586528,0.37995,-0.0717344,0.20681,0.294141]
+Algorithm: I1A2U2, x = {1,2} 
+CLUSTER-0 {size: 116, medoid: item580}
+CLUSTER-1 {size: 19, medoid: item84}
+CLUSTER-2 {size: 131, medoid: item380}
+CLUSTER-3 {size: 163, medoid: item945}
+CLUSTER-4 {size: 269, medoid: item106}
+CLUSTER-5 {size: 16, medoid: item842}
+CLUSTER-6 {size: 133, medoid: item470}
+CLUSTER-7 {size: 7, medoid: item780}
+CLUSTER-8 {size: 33, medoid: item640}
+CLUSTER-9 {size: 103, medoid: item237}
+clustering_time: 0.22 //in seconds
+Silhouette: [0.350009,0.188208,0.226397,0.0626222,-0.197328,0.193429,0.272121,0.415177,0.294933,0.197231,0.20028]
+Algorithm: I2A1U1, x = {1,2} 
+CLUSTER-0 {size: 242, medoid: item96}
+CLUSTER-1 {size: 140, medoid: item240}
+CLUSTER-2 {size: 88, medoid: item208}
+CLUSTER-3 {size: 105, medoid: item202}
+CLUSTER-4 {size: 29, medoid: item272}
+CLUSTER-5 {size: 76, medoid: item247}
+CLUSTER-6 {size: 63, medoid: item245}
+CLUSTER-7 {size: 154, medoid: item986}
+CLUSTER-8 {size: 29, medoid: item954}
+CLUSTER-9 {size: 64, medoid: item215}
+clustering_time: 0.026 //in seconds
+Silhouette: [0.0282602,0.0502816,0.43091,0.25595,-0.0256892,0.196791,0.0583424,0.225639,0.0574311,0.172884,0.14508]
+Algorithm: I2A1U2, x = {1,2} 
+CLUSTER-0 {size: 184, medoid: item96}
+CLUSTER-1 {size: 104, medoid: item240}
+CLUSTER-2 {size: 86, medoid: item208}
+CLUSTER-3 {size: 80, medoid: item202}
+CLUSTER-4 {size: 208, medoid: item900}
+CLUSTER-5 {size: 77, medoid: item247}
+CLUSTER-6 {size: 57, medoid: item245}
+CLUSTER-7 {size: 106, medoid: item986}
+CLUSTER-8 {size: 25, medoid: item954}
+CLUSTER-9 {size: 63, medoid: item215}
+clustering_time: 0.162 //in seconds
+Silhouette: [0.0780517,0.0863438,0.456812,0.44352,0.231352,0.206534,0.0227332,0.449554,0.00895327,0.188542,0.21724]
+Algorithm: I2A2U1, x = {1,2} 
+CLUSTER-0 {size: 242, medoid: item96}
+CLUSTER-1 {size: 140, medoid: item240}
+CLUSTER-2 {size: 88, medoid: item208}
+CLUSTER-3 {size: 105, medoid: item202}
+CLUSTER-4 {size: 29, medoid: item272}
+CLUSTER-5 {size: 76, medoid: item247}
+CLUSTER-6 {size: 63, medoid: item245}
+CLUSTER-7 {size: 154, medoid: item986}
+CLUSTER-8 {size: 29, medoid: item954}
+CLUSTER-9 {size: 64, medoid: item215}
+clustering_time: 0.025 //in seconds
+Silhouette: [0.0282602,0.0502816,0.43091,0.25595,-0.0256892,0.196791,0.0583424,0.225639,0.0574311,0.172884,0.14508]
+Algorithm: I2A2U2, x = {1,2} 
+CLUSTER-0 {size: 170, medoid: item97}
+CLUSTER-1 {size: 83, medoid: item325}
+CLUSTER-2 {size: 87, medoid: item243}
+CLUSTER-3 {size: 31, medoid: item218}
+CLUSTER-4 {size: 108, medoid: item380}
+CLUSTER-5 {size: 31, medoid: item339}
+CLUSTER-6 {size: 271, medoid: item470}
+CLUSTER-7 {size: 125, medoid: item356}
+CLUSTER-8 {size: 19, medoid: item239}
+CLUSTER-9 {size: 65, medoid: item261}
+clustering_time: 0.239 //in seconds
+Silhouette: [0.161835,0.366566,-0.0442261,0.160182,0.337612,-0.0826205,0.23396,0.195321,0.294066,0.23584,0.185854]
+Algorithm: CLARA
+CLUSTER-0 {size: 13, medoid: item965}
+CLUSTER-1 {size: 34, medoid: item174}
+CLUSTER-2 {size: 0, medoid: item820}
+CLUSTER-3 {size: 0, medoid: item641}
+CLUSTER-4 {size: 0, medoid: item153}
+CLUSTER-5 {size: 1, medoid: item487}
+CLUSTER-6 {size: 0, medoid: item216}
+CLUSTER-7 {size: 0, medoid: item919}
+CLUSTER-8 {size: 0, medoid: item456}
+CLUSTER-9 {size: 2, medoid: item806}
+clustering_time: 0.01 //in seconds
+Silhouette: [0.0772686,0.0767671,1,1,1,0.476649,1,1,1,0.356448,0.698713]
